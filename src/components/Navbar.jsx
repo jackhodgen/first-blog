@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext.jsx";
+import { supabase } from "../lib/supabaseClient";
 
 export default function Navbar() {
+  const { user } = useAuth();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
   return (
     <nav className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -17,12 +25,30 @@ export default function Navbar() {
           <Link to="/about" className="hover:text-gray-200 transition-colors">
             About
           </Link>
-          <Link
-            to="/create"
-            className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
-          >
-            New Post
-          </Link>
+
+          {user ? (
+            <>
+              <Link
+                to="/create"
+                className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+              >
+                New Post
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

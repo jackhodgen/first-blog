@@ -6,20 +6,18 @@ export default function About() {
       </h1>
 
       <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-        Welcome to my blog! Here I share my thoughts, experiences, and insights
-        on technology, life, and personal projects. This blog is built using
-        React and TailwindCSS, making it fully responsive and modern.
+        Welcome to my blog! Here I share my thoughts, experiences, and what I
+        have learned so far. This blog is built using React and TailwindCSS.
       </p>
 
       <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-        The goal of this blog is to provide clear, concise, and useful content
-        for anyone interested in learning new things, staying updated, or just
-        exploring interesting topics.
+        The goal of this was to make a web app project that also serves as a way
+        for me to track my growth as a software developer.
       </p>
 
       <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-        Thanks for visiting! Feel free to explore the posts or reach out through
-        the contact links.
+        Thanks for visiting! Feel free to explore or reach out through the
+        contact links.
       </p>
     </div>
   );
