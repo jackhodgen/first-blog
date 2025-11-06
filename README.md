@@ -6,7 +6,7 @@ A modern, responsive blog built with **React** and **TailwindCSS**, using **Supa
 
 ## Demo
 
-![Home Page Screenshot](my-blog.png)
+![Home Page Screenshot](public/my-blog.png)
 
 ---
 
