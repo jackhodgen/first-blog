@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
+import PageHeader from "../components/PageHeader.jsx";
 
 export default function PostPage() {
   const { slug } = useParams();
@@ -16,7 +17,7 @@ export default function PostPage() {
           .select(
             "id, title, content, author, slug, published_at, excerpt, cover_url"
           )
-          .ilike("slug", slug) // case-insensitive match
+          .ilike("slug", slug)
           .maybeSingle();
 
         if (error) setError(error);
@@ -48,25 +49,35 @@ export default function PostPage() {
     );
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-3xl">
-      {post.cover_url && (
-        <img
-          src={post.cover_url}
-          alt={post.title}
-          className="mb-4 rounded-lg"
-        />
-      )}
-      <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
-      <p className="text-sm text-gray-500 mb-4">
+    <div>
+      {/* Use PageHeader component */}
+      <PageHeader title={post.title} />
+
+      {/* Optional post meta below the header */}
+      <div className="container mx-auto px-4 py-4 text-center text-gray-500 text-sm">
         {post.author || "Unknown"} •{" "}
         {new Date(post.published_at).toLocaleDateString()}
-      </p>
-      <p className="text-gray-800 leading-relaxed">
-        {post.content || "No content available"}
-      </p>
-      <Link to="/" className="inline-block mt-6 text-blue-600 hover:underline">
-        ← Back to Home
-      </Link>
+      </div>
+
+      {/* Post content */}
+      <div className="container mx-auto px-4 py-6 max-w-3xl bg-white rounded-lg shadow-md">
+        {post.cover_url && (
+          <img
+            src={post.cover_url}
+            alt={post.title}
+            className="mb-4 rounded-lg w-full"
+          />
+        )}
+        <div className="text-gray-800 leading-relaxed whitespace-pre-line">
+          {post.content || "No content available"}
+        </div>
+        <Link
+          to="/"
+          className="inline-block mt-8 text-indigo-600 font-semibold hover:underline"
+        >
+          ← Back to Home
+        </Link>
+      </div>
     </div>
   );
 }
