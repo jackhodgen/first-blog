@@ -26,7 +26,7 @@ export default function ContactSection() {
           </a>
 
           <a
-            href="john@johnhodgen.com"
+            href="mailto:john@johnhodgen.com"
             className="hover:text-green-400 transition"
           >
             <Mail size={28} />
