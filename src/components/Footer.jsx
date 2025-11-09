@@ -3,7 +3,7 @@ import { Mail, Instagram, Linkedin } from "lucide-react";
 export default function ContactSection() {
   const handleMailClick = (e) => {
     e.preventDefault();
-    window.location.href = "mailto:jack@johnhodgen.com";
+    window.location.href = "mailto:john@johnhodgen.com";
   };
 
   return (
