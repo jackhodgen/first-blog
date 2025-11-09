@@ -67,7 +67,7 @@ export default function Home() {
             <ul className="text-gray-700 text-sm space-y-1">
               <li>Tech</li>
               <li>Life</li>
-              <li>Travel</li>
+              <li>Growth</li>
             </ul>
           </div>
 
