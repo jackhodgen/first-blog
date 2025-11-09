@@ -8,7 +8,7 @@ export default function ContactSection() {
 
         <div className="flex justify-center space-x-8 mb-6">
           <a
-            href="https://www.instagram.com/yourhandle"
+            href="https://www.instagram.com/jack_hodgen"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-pink-400 transition"
@@ -26,7 +26,7 @@ export default function ContactSection() {
           </a>
 
           <a
-            href="mailto:your@email.com"
+            href="john@johnhodgen.com"
             className="hover:text-green-400 transition"
           >
             <Mail size={28} />
