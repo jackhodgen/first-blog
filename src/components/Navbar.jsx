@@ -73,7 +73,7 @@ export default function Navbar() {
           to="/"
           className="text-2xl font-bold hover:text-gray-200 transition-colors"
         >
-          My Blog
+          JH Blog
         </Link>
         <div className="space-x-4">
           <Link to="/" className="hover:text-gray-200 transition-colors">

@@ -28,10 +28,10 @@ export default function HeaderHero() {
     <header className="relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white pt-32 pb-20">
       <div className="container mx-auto px-4 text-center relative z-10">
         <h1 className="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
-          Welcome to My Blog
+          Thoughts & Code
         </h1>
         <p className="text-lg md:text-2xl drop-shadow-md">
-          Insights, stories, and updates from my world
+          Documenting growth, projects, and reflections
         </p>
 
         {latestPost && (
