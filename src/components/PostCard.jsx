@@ -2,26 +2,24 @@ import { Link } from "react-router-dom";
 
 export default function PostCard({ post }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow duration-200">
-      <h2 className="text-xl font-semibold mb-2 text-gray-800 hover:text-indigo-600 transition-colors">
-        {post.title}
-      </h2>
-
-      <p className="text-gray-600 mb-4">
-        {post.excerpt || post.content.slice(0, 100) + "..."}
-      </p>
-
-      <div className="flex items-center justify-between text-sm text-gray-500">
-        <span>{post.author || "Unknown"}</span>
-        <span>{new Date(post.published_at).toLocaleDateString()}</span>
+    <div className="py-6 border-b border-rule">
+      <div className="flex items-baseline justify-between gap-6 mb-1.5">
+        <Link
+          to={`/post/${post.slug}`}
+          className="font-editorial text-lg font-normal text-ink hover:text-forest transition-colors leading-snug"
+        >
+          {post.title}
+        </Link>
+        <span className="text-xs text-dust whitespace-nowrap flex-shrink-0 tabular-nums">
+          {new Date(post.published_at).toLocaleDateString("en-US", {
+            month: "short",
+            year: "numeric",
+          })}
+        </span>
       </div>
-
-      <Link
-        to={`/post/${post.slug}`}
-        className="mt-4 inline-block text-indigo-600 hover:underline font-medium"
-      >
-        Read More
-      </Link>
+      <p className="text-sm text-dust leading-relaxed line-clamp-1">
+        {post.excerpt || post.content.slice(0, 120) + "..."}
+      </p>
     </div>
   );
 }

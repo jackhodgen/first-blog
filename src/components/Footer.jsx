@@ -1,47 +1,45 @@
 import { Mail, Instagram, Linkedin } from "lucide-react";
 
-export default function ContactSection() {
+export default function Footer() {
   const handleMailClick = (e) => {
     e.preventDefault();
     window.location.href = "mailto:john@johnhodgen.com";
   };
 
   return (
-    <footer className="bg-gray-900 text-white py-12 mt-20">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
+    <footer className="border-t border-rule mt-20">
+      <div className="max-w-2xl mx-auto px-6 py-10 flex justify-between items-center">
+        <span className="font-editorial text-sm text-dust">Entry Level</span>
 
-        <div className="flex justify-center space-x-8 mb-6">
+        <div className="flex items-center gap-6">
           <a
             href="https://www.instagram.com/jack_hodgen"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-pink-400 transition"
+            className="text-dust hover:text-forest transition-colors"
           >
-            <Instagram size={28} />
+            <Instagram size={18} />
           </a>
-
           <a
-            href="https://www.linkedin.com/in/yourprofile"
+            href="https://www.linkedin.com/in/john-hodgen-59233b29b"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-400 transition"
+            className="text-dust hover:text-forest transition-colors"
           >
-            <Linkedin size={28} />
+            <Linkedin size={18} />
           </a>
-
           <a
             href="mailto:john@johnhodgen.com"
             onClick={handleMailClick}
-            className="hover:text-green-400 transition"
+            className="text-dust hover:text-forest transition-colors"
           >
-            <Mail size={28} />
+            <Mail size={18} />
           </a>
         </div>
 
-        <p className="text-gray-400 text-sm">
-          © {new Date().getFullYear()} My Blog
-        </p>
+        <span className="text-xs text-dust">
+          &copy; {new Date().getFullYear()}
+        </span>
       </div>
     </footer>
   );

@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@theme {
+  --font-editorial: 'Fraunces', Georgia, serif;
+  --font-prose: 'Lora', Georgia, serif;
+
+  --color-parchment: #F0EFEA;
+  --color-ink: #1C1917;
+  --color-dust: #6B6860;
+  --color-rule: #D9D7D0;
+  --color-forest: #1B4332;
+  --color-moss: #166534;
+}
+
+html,
+body {
+  background-color: #F0EFEA;
+  color: #1C1917;
+  font-family: 'Lora', Georgia, serif;
+}
+
+#root {
+  background-color: #F0EFEA;
+  min-height: 100vh;
+}

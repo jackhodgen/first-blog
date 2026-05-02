@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import PostCard from "../components/PostCard.jsx";
-import HeaderHero from "../components/HeaderHero.jsx";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -13,81 +13,99 @@ export default function Home() {
       try {
         const { data, error } = await supabase
           .from("posts")
-          .select(
-            "id, title, slug, content, author, published_at, excerpt, cover_url"
-          )
+          .select("id, title, slug, content, author, published_at, excerpt, cover_url")
           .order("published_at", { ascending: false })
-          .limit(5);
+          .limit(10);
 
-        if (error) {
-          console.error("Error fetching posts:", error);
-          setError(error);
-        } else {
-          setPosts(data || []);
-        }
+        if (error) setError(error);
+        else setPosts(data || []);
       } catch (err) {
-        console.error("Unexpected error:", err);
         setError(err);
       } finally {
         setLoading(false);
       }
     }
-
     fetchPosts();
   }, []);
 
-  if (loading) return <p className="text-center py-10">Loading posts...</p>;
+  if (loading)
+    return (
+      <div className="max-w-2xl mx-auto px-6 py-20 text-center text-dust">
+        Loading...
+      </div>
+    );
+
   if (error)
-    return <p className="text-center py-10 text-red-500">{error.message}</p>;
+    return (
+      <div className="max-w-2xl mx-auto px-6 py-20 text-center text-red-700">
+        {error.message}
+      </div>
+    );
+
+  const featured = posts[0];
+  const rest = posts.slice(1);
 
   return (
     <>
-      {/* Hero section (navbar overlays this) */}
-      <HeaderHero />
+      {/* Masthead */}
+      <div className="max-w-2xl mx-auto px-6 pt-8">
+        <div className="border-t-2 border-ink pt-5 pb-6 border-b border-rule text-center">
+          <h1 className="font-editorial text-6xl font-light text-ink leading-none mb-3">
+            Entry Level
+          </h1>
+          <p className="text-xs text-dust uppercase tracking-widest">
+            A developer&rsquo;s log &nbsp;&bull;&nbsp; Pasadena, CA &nbsp;&bull;&nbsp;{" "}
+            {new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+          </p>
+        </div>
+      </div>
 
-      {/* Main blog content */}
-      <main className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 space-y-6">
-          {posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={{
-                ...post,
-                excerpt: post.excerpt || post.content.slice(0, 150) + "...",
-                content: post.content || "No content available",
-                cover_url: post.cover_url || null,
-              }}
-            />
+      {/* Featured post */}
+      {featured && (
+        <div className="max-w-2xl mx-auto px-6 pt-12 pb-10 border-b border-rule">
+          <span className="text-xs text-forest uppercase tracking-widest mb-5 block">
+            Latest
+          </span>
+          <Link to={`/post/${featured.slug}`} className="group block">
+            <h2 className="font-editorial text-3xl font-normal text-ink mb-4 leading-snug group-hover:text-forest transition-colors duration-200">
+              {featured.title}
+            </h2>
+          </Link>
+          <p className="text-dust leading-relaxed mb-6 text-[0.9375rem]">
+            {featured.excerpt || featured.content.slice(0, 220) + "..."}
+          </p>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-dust">
+              {featured.author || "Jack Hodgen"}&nbsp;&middot;&nbsp;
+              {new Date(featured.published_at).toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              })}
+            </span>
+            <Link
+              to={`/post/${featured.slug}`}
+              className="text-forest hover:text-moss font-medium transition-colors"
+            >
+              Read &rarr;
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Post list */}
+      {rest.length > 0 && (
+        <div className="max-w-2xl mx-auto px-6 pt-2 pb-20">
+          {rest.map((post) => (
+            <PostCard key={post.id} post={post} />
           ))}
         </div>
+      )}
 
-        <aside className="space-y-4">
-          <div className="bg-white p-4 rounded-lg shadow">
-            <h3 className="font-bold mb-2 text-lg">Categories</h3>
-            <ul className="text-gray-700 text-sm space-y-1">
-              <li>Tech</li>
-              <li>Life</li>
-              <li>Growth</li>
-            </ul>
-          </div>
-
-          <div className="bg-white p-4 rounded-lg shadow">
-            <h3 className="font-bold mb-2 text-lg">Latest Posts</h3>
-            <ul className="text-gray-700 text-sm space-y-1">
-              {posts.slice(0, 3).map((post) => (
-                <li key={post.id}>
-                  <a
-                    href={`/post/${post.slug}`}
-                    className="hover:underline text-blue-600"
-                  >
-                    {post.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </aside>
-      </main>
+      {posts.length === 0 && (
+        <div className="max-w-2xl mx-auto px-6 pt-16 pb-20 text-dust text-sm">
+          No posts yet.
+        </div>
+      )}
     </>
   );
 }
