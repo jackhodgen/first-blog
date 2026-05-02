@@ -2,7 +2,7 @@ import PageHeader from "../components/PageHeader.jsx";
 
 export default function About() {
   return (
-    <div>
+    <div className="page-fade">
       <PageHeader title="About" />
 
       <div className="max-w-2xl mx-auto px-6 py-12">

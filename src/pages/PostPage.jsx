@@ -68,7 +68,7 @@ export default function PostPage() {
     );
 
   return (
-    <div className="max-w-[65ch] mx-auto px-6">
+    <div className="page-fade max-w-[65ch] mx-auto px-6">
       {/* Post header */}
       <div className="pt-14 pb-8 border-b border-rule mb-10">
         <h1 className="font-editorial text-4xl font-normal leading-tight text-ink mb-5">

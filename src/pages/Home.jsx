@@ -46,11 +46,14 @@ export default function Home() {
   const rest = posts.slice(1);
 
   return (
-    <>
+    <div className="page-fade">
       {/* Masthead */}
       <div className="max-w-2xl mx-auto px-6 pt-8">
-        <div className="border-t-2 border-ink pt-5 pb-6 border-b border-rule text-center">
-          <h1 className="font-editorial text-6xl font-light text-ink leading-none mb-3">
+        <div className="border-t-2 border-accent pt-5 pb-6 border-b border-rule text-center">
+          <h1
+            className="font-editorial text-6xl font-light text-ink leading-none mb-3"
+            style={{ textShadow: '0 1px 0 rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05)' }}
+          >
             Entry Level
           </h1>
           <p className="text-xs text-dust uppercase tracking-widest">
@@ -62,8 +65,8 @@ export default function Home() {
 
       {/* Featured post */}
       {featured && (
-        <div className="max-w-2xl mx-auto px-6 pt-12 pb-10 border-b border-rule">
-          <span className="text-xs text-forest uppercase tracking-widest mb-5 block">
+        <div className="max-w-2xl mx-auto px-6 pt-12 pb-10">
+          <span className="text-xs text-accent uppercase tracking-widest mb-5 block">
             Latest
           </span>
           <Link to={`/post/${featured.slug}`} className="group block">
@@ -84,11 +87,25 @@ export default function Home() {
             </span>
             <Link
               to={`/post/${featured.slug}`}
-              className="text-forest hover:text-moss font-medium transition-colors"
+              className="group text-accent hover:opacity-75 font-medium transition-opacity inline-flex items-center gap-1"
             >
-              Read &rarr;
+              <span>Read</span>
+              <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
             </Link>
           </div>
+        </div>
+      )}
+
+      {/* Ornamental divider */}
+      {featured && rest.length > 0 && (
+        <div className="max-w-2xl mx-auto px-6 flex items-center gap-4 py-2">
+          <div className="flex-1 h-px bg-rule" />
+          <svg viewBox="0 0 48 16" className="w-16 h-3 flex-shrink-0">
+            <line x1="0" y1="8" x2="14" y2="8" stroke="#D9D7D0" strokeWidth="0.75" />
+            <path d="M18 8 L24 2 L30 8 L24 14 Z" fill="#B5722A" opacity="0.8" />
+            <line x1="34" y1="8" x2="48" y2="8" stroke="#D9D7D0" strokeWidth="0.75" />
+          </svg>
+          <div className="flex-1 h-px bg-rule" />
         </div>
       )}
 
@@ -106,6 +123,6 @@ export default function Home() {
           No posts yet.
         </div>
       )}
-    </>
+    </div>
   );
 }

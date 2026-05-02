@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-rule mt-20">
       <div className="max-w-2xl mx-auto px-6 py-10 flex justify-between items-center">
-        <span className="font-editorial text-sm text-dust">Entry Level</span>
+        <span className="font-editorial text-sm text-accent">Entry Level</span>
 
         <div className="flex items-center gap-6">
           <a

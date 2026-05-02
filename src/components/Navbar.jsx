@@ -22,13 +22,13 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           <Link
             to="/"
-            className="text-sm text-dust hover:text-forest transition-colors tracking-wide"
+            className="nav-link text-sm text-dust hover:text-forest transition-colors tracking-wide"
           >
             Home
           </Link>
           <Link
             to="/about"
-            className="text-sm text-dust hover:text-forest transition-colors tracking-wide"
+            className="nav-link text-sm text-dust hover:text-forest transition-colors tracking-wide"
           >
             About
           </Link>
