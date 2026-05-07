@@ -16,6 +16,7 @@ export default function PostCard({ post }) {
           <span className="text-xs text-dust whitespace-nowrap flex-shrink-0 tabular-nums">
             {new Date(post.published_at).toLocaleDateString("en-US", {
               month: "short",
+              day: "numeric",
               year: "numeric",
             })}
           </span>
