@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { useAuth } from "../contexts/AuthContext.jsx";
+import { TAG_COLORS } from "../lib/tags.js";
 
 export default function PostPage() {
   const { slug } = useParams();
@@ -16,7 +17,7 @@ export default function PostPage() {
       try {
         const { data, error } = await supabase
           .from("posts")
-          .select("id, title, content, author, slug, published_at, excerpt, cover_url")
+          .select("id, title, content, author, slug, published_at, excerpt, cover_url, tags")
           .ilike("slug", slug)
           .maybeSingle();
 
@@ -74,14 +75,29 @@ export default function PostPage() {
         <h1 className="font-editorial text-4xl font-normal leading-tight text-ink mb-5">
           {post.title}
         </h1>
-        <p className="text-sm text-dust">
-          {post.author || "Jack Hodgen"}&nbsp;&middot;&nbsp;
-          {new Date(post.published_at).toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </p>
+        <div className="flex items-center gap-4 flex-wrap">
+          <p className="text-sm text-dust">
+            {post.author || "Jack Hodgen"}&nbsp;&middot;&nbsp;
+            {new Date(post.published_at).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </p>
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex gap-1.5 flex-wrap">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-[0.65rem] uppercase tracking-wider px-2 py-0.5 rounded-sm"
+                  style={{ background: TAG_COLORS[tag]?.bg, color: TAG_COLORS[tag]?.text }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {post.cover_url && (

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { TAG_COLORS } from "../lib/tags.js";
 
 export default function PostCard({ post }) {
   return (
@@ -19,9 +20,22 @@ export default function PostCard({ post }) {
             })}
           </span>
         </div>
-        <p className="text-sm text-dust leading-relaxed line-clamp-1">
+        <p className="text-sm text-dust leading-relaxed line-clamp-1 mb-2">
           {post.excerpt || post.content.slice(0, 120) + "..."}
         </p>
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex gap-1.5 flex-wrap">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[0.65rem] uppercase tracking-wider px-2 py-0.5 rounded-sm"
+                style={{ background: TAG_COLORS[tag]?.bg, color: TAG_COLORS[tag]?.text }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

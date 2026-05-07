@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext.jsx";
+import { TAGS, TAG_COLORS, TAG_ACTIVE_COLORS } from "../lib/tags.js";
 
 export default function CreatePost() {
   const { user, loading } = useAuth();
@@ -9,6 +10,7 @@ export default function CreatePost() {
   const [slug, setSlug] = useState("");
   const [content, setContent] = useState("");
   const [authorName, setAuthorName] = useState("");
+  const [tags, setTags] = useState([]);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [error, setError] = useState(null);
 
@@ -17,13 +19,19 @@ export default function CreatePost() {
   if (loading) return <p className="text-center py-10">Loading...</p>;
   if (!user) return <Navigate to="/login" />;
 
+  function toggleTag(tag) {
+    setTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoadingSubmit(true);
     setError(null);
 
     const finalSlug = slug || title.toLowerCase().replace(/\s+/g, "-");
-    const finalAuthor = authorName.trim() || user.email; // use typed name, fallback to email
+    const finalAuthor = authorName.trim() || user.email;
 
     const { error } = await supabase.from("posts").insert([
       {
@@ -31,6 +39,7 @@ export default function CreatePost() {
         slug: finalSlug,
         content,
         author: finalAuthor,
+        tags,
         published_at: new Date().toISOString(),
       },
     ]);
@@ -96,6 +105,34 @@ export default function CreatePost() {
           <p className="text-xs text-gray-500 mt-1">
             Leave blank to use your account email by default.
           </p>
+        </div>
+
+        {/* Tags */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Tags
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {TAGS.map((tag) => {
+              const active = tags.includes(tag);
+              const colors = active ? TAG_ACTIVE_COLORS[tag] : null;
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => toggleTag(tag)}
+                  className="text-xs uppercase tracking-wider px-3 py-1 rounded-sm border transition-colors"
+                  style={
+                    active
+                      ? { background: colors.bg, color: colors.text, borderColor: colors.bg }
+                      : { background: "transparent", color: "#6B6860", borderColor: "#D9D7D0" }
+                  }
+                >
+                  {tag}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Content */}
