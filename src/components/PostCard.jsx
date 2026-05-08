@@ -4,7 +4,7 @@ import { TAG_COLORS } from "../lib/tags.js";
 export default function PostCard({ post }) {
   return (
     <div className="group py-6 border-b border-rule relative">
-      <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-forest opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+      <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-forest origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-200" />
       <div className="transition-transform duration-200 group-hover:translate-x-2.5">
         <div className="flex items-baseline justify-between gap-6 mb-1.5">
           <Link
